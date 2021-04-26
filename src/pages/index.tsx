@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { format, parseISO } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 
@@ -17,7 +18,6 @@ type Episode = {
   url: string;
   duration: number;
   durationAsString: string;
-  description: string;
 };
 
 type HomeProps = {
@@ -44,7 +44,9 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                 />
 
                 <div className={styles.episodesDetails}>
-                  <a href="">{ep.title}</a>
+                  <Link href={`/episodes/${ep.id}`}>
+                    <a>{ep.title}</a>
+                  </Link>
 
                   <p>{ep.members}</p>
 
@@ -66,12 +68,14 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 
         <table cellSpacing={0}>
           <thead>
-            <th></th>
-            <th>Poadcast</th>
-            <th>Integrantes</th>
-            <th>Data</th>
-            <th>Duração</th>
-            <th></th>
+            <tr>
+              <th></th>
+              <th>Poadcast</th>
+              <th>Integrantes</th>
+              <th>Data</th>
+              <th>Duração</th>
+              <th></th>
+            </tr>
           </thead>
 
           <tbody>
@@ -88,7 +92,9 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                     />
                   </td>
                   <td>
-                    <a href="">{ep.title}</a>
+                    <Link href={`/episodes/${ep.id}`}>
+                      <a>{ep.title}</a>
+                    </Link>
                   </td>
                   <td>{ep.members}</td>
                   <td style={{ width: 108 }}>{ep.publishedAt}</td>
@@ -128,7 +134,6 @@ export const getStaticProps: GetStaticProps = async () => {
       }),
       duration: Number(ep.file.duration),
       durationAsString: convertDurationToTimeString(Number(ep.file.duration)),
-      description: ep.description,
       url: ep.file.url,
     };
   });
