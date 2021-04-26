@@ -3,5 +3,16 @@
 
   main {
     flex: 1;
+
+    position: relative;
+
+    .animation {
+      max-width: 45rem;
+      position: absolute;
+      top: 44%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 2rem auto;
+    }
   }
 }
